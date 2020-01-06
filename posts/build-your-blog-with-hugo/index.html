@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html class="nojs" lang="en" dir="ltr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width">
+<title>使用hugo搭建个人blog – 随便写写</title>
+<meta name="description" content="本文介绍如何基于hugo搭建自己的个人blog，包括blog的意义、blog服务选择、hugo介绍以及使用travis进行一定程度自动化等内容。">
+<meta name="created" content="2020-01-06T11:28:08+0800">
+<meta name="modified" content="2020-01-06T11:28:08+0800">
+
+
+<meta property="og:site_name" content="随便写写">
+<meta property="og:title" content="使用hugo搭建个人blog">
+<meta property="og:url" content="https://zlx.pub/posts/build-your-blog-with-hugo/">
+<meta property="og:type" content="article">
+
+<meta name="generator" content="Hugo 0.62.2" />
+<meta name="msapplication-TileColor" content="#ffffff">
+<meta name="theme-color" content="#ffffff">
+
+
+<link rel="canonical" href="https://zlx.pub/posts/build-your-blog-with-hugo/">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+
+<link rel="stylesheet" href="/css/styles.9a3856451d3f4911845551d6f046455bd8cbf120441071c76e7438ba3ac163e1.css">
+<link rel="stylesheet" href="/css/print.27fc184f8670f41a2690985390779e7b20335a8fadff8fa015cf9417ffe50c36.css" media="print">
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "headline": "使用hugo搭建个人blog",
+    "datePublished": "2020-01-06T11:28:08+08:00",
+    "dateModified": "2020-01-06T11:28:08+08:00",
+    "url" : "https://zlx.pub/posts/build-your-blog-with-hugo/",
+    "description": "本文介绍如何基于hugo搭建自己的个人blog，包括blog的意义、blog服务选择、hugo介绍以及使用travis进行一定程度自动化等内容。",
+    "keywords": ["hugo","blog"],
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https://zlx.pub/"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "随便写写",
+      "url": "https://zlx.pub/"
+    }
+  }
+</script>
+
+<script defer src="/js/umbrella.min.b426107371d121c9a56a27aac9e9058ff592a021e2f4c3c94827fe70920d3cbb.js"></script>
+<script defer src="/js/script.min.8e4d91ebe0d9226621e408b7205bd7b009e4935608e4b29c4275116490cc836d.js"></script>
+
+
+</head>
+
+<body>
+<div class="page layout__page layout__sidebar-second">
+<header class="header layout__header">
+<a href="/" title="Home" rel="home" class="header__logo"><img src="/images/logo.png" alt="Home" class="header__logo-image"></a>
+<h1 class="header__site-name">
+<a href="/" title="Home" class="header__site-link" rel="home"><span>随便写写</span></a>
+</h1>
+<div class="region header__region">
+</div>
+</header>
+
+<nav class="main-menu layout__navigation">
+<h2 class="visually-hidden">Main menu</h2>
+<ul class="navbar">
+<li><a href="/">Home</a></li>
+<li><a href="/posts/" class="active" aria-current="page">Posts</a></li>
+</ul>
+</nav>
+
+
+<main class="main layout__main">
+<article class="section-posts single-view">
+<header>
+<h1 class="title ">使用hugo搭建个人blog</h1>
+<div class="tags">
+Tags:
+<ul>
+<li><a href="/tags/hugo">hugo</a></li>
+<li><a href="/tags/blog">blog</a></li>
+</ul>
+</div>
+</header>
+<div class="content">
+<p>简要记录一下搭建本 blog 的过程。</p>
+<h2 id="下载-hugo">下载 Hugo</h2>
+<p>从 github 上 hugo 项目的 <a href="https://github.com/gohugoio/hugo/releases">release</a> 下载适用自己电脑操作系统的 hugo 二进制文件</p>
+<pre><code>## 下载 hugo
+$ curl -sL https://github.com/gohugoio/hugo/releases/download/v0.62.2/hugo_extended_0.62.2_macOS-64bit.tar.gz | tar zx
+
+# 复制二进制文件到 PATH 包含的目录下
+$ cp hugo_extended_0.62.2_macOS-64bit/hugo /usr/local/bin
+
+</code></pre><h2 id="生成-blog-项目">生成 blog 项目</h2>
+<pre><code>$ hugo new site blog
+
+$ tree blog
+blog
+├── archetypes
+│   └── default.md
+├── config.toml
+├── content
+├── data
+├── layouts
+├── static
+└── themes
+
+6 directories, 2 files
+</code></pre><p><code>config.toml</code> 是项目的配置文件，内容如下：</p>
+<pre><code>baseURL = &quot;http://example.org/&quot;
+languageCode = &quot;en-us&quot;
+title = &quot;My New Hugo Site&quot;
+</code></pre><p>根据自己的需要修改域名、语言代码和网站标题</p>
+<h2 id="安装主题">安装主题</h2>
+<p>访问 <a href="https://themes.gohugo.io/">hugo 主题网站</a>，选择自己喜欢的主题，这里我选择了<a href="https://themes.gohugo.io/hugo-theme-zen/">zen</a> 将其复制到 blog/themes 下，并修改 blog/config.toml，增加以下内容：</p>
+<pre><code>theme = &quot;zen&quot;
+</code></pre><h2 id="创建-blog">创建 blog</h2>
+<pre><code>$ hugo new posts/hello-world.md
+</code></pre><p>会生成 content/posts/hello-world.md 文件，并且默认有以下内容：</p>
+<pre><code>---
+title: &quot;Hello World&quot;
+date: 2020-01-06T12:07:05+08:00
+draft: true
+---
+</code></pre><p><code>draft: true</code> 表明该文档还是起草阶段，不会生成静态文件</p>
+<p>在 <code>---</code> 下面写文章内容，格式为 <a href="https://www.markdownguide.org/getting-started/">Markdown</a></p>
+<h2 id="启动-hugo-预览服务">启动 hugo 预览服务</h2>
+<p>在写文章的时候，可以启动 hugo 的 HTTP 预览服务，监听本地 <code>1313</code> 端口：</p>
+<pre><code># -D, --buildDrafts            include content marked as draft
+$ hugo server -D
+</code></pre><p>hugo 通过 <a href="github.com/fsnotify/fsnotify">fsnotify</a> 监视目录文件变化，即时读取和渲染修改后的 markdown 文件，并且通过 websocket 通知浏览器前端重新加载页面</p>
+<h2 id="排雷">排雷</h2>
+<p>刚开始下载的不是 extended 版本的 hugo，执行 <code>hugo server -D</code> 的时候报错：</p>
+<pre><code>Building sites … ERROR 2020/01/06 14:22:33 Transformation failed: TOCSS: failed to transform &quot;sass/styles.scss&quot; (text/x-scss): this feature is not available in your current Hugo version, see https://goo.gl/YMrWcn for more information
+ERROR 2020/01/06 14:22:33 Transformation failed: TOCSS: failed to transform &quot;sass/print.scss&quot; (text/x-scss): this feature is not available in your current Hugo version, see https://goo.gl/YMrWcn for more information
+Built in 11 ms
+Error: Error building site: logged 2 error(s)
+</code></pre><p>重新下载 <code>hugo_extended_0.62.2_macOS-64bit.tar.gz</code> 解决了问题</p>
+<h2 id="生成静态文件">生成静态文件</h2>
+<p>在 blog 目录下运行以下命令生成静态文件</p>
+<pre><code>$ hugo 
+</code></pre><p>整个 blog 的静态文件在 <code>public</code> 目录下，将其托管到 web 上即可对外提供访问</p>
+
+
+</div>
+</article>
+</main>
+
+
+<footer class="footer layout__footer">
+<p><span>© 随便写写</span></p>
+
+
+</footer>
+
+</div>
+</body>
+</html>

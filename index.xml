@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>随便写写</title>
+    <link>https://zlx.pub/</link>
+    <description>Recent content on 随便写写</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Mon, 06 Jan 2020 11:28:08 +0800</lastBuildDate>
+    <atom:link href="https://zlx.pub/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>使用hugo搭建个人blog</title>
+      <link>https://zlx.pub/posts/build-your-blog-with-hugo/</link>
+      <pubDate>Mon, 06 Jan 2020 11:28:08 +0800</pubDate>
+      <guid>https://zlx.pub/posts/build-your-blog-with-hugo/</guid>
+      <description>&lt;p&gt;简要记录一下搭建本 blog 的过程。&lt;/p&gt;
+&lt;h2 id=&#34;下载-hugo&#34;&gt;下载 Hugo&lt;/h2&gt;
+&lt;p&gt;从 github 上 hugo 项目的 &lt;a href=&#34;https://github.com/gohugoio/hugo/releases&#34;&gt;release&lt;/a&gt; 下载适用自己电脑操作系统的 hugo 二进制文件&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;## 下载 hugo
+$ curl -sL https://github.com/gohugoio/hugo/releases/download/v0.62.2/hugo_extended_0.62.2_macOS-64bit.tar.gz | tar zx
+
+# 复制二进制文件到 PATH 包含的目录下
+$ cp hugo_extended_0.62.2_macOS-64bit/hugo /usr/local/bin
+
+&lt;/code&gt;&lt;/pre&gt;&lt;h2 id=&#34;生成-blog-项目&#34;&gt;生成 blog 项目&lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;$ hugo new site blog
+
+$ tree blog
+blog
+├── archetypes
+│   └── default.md
+├── config.toml
+├── content
+├── data
+├── layouts
+├── static
+└── themes
+
+6 directories, 2 files
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;&lt;code&gt;config.toml&lt;/code&gt; 是项目的配置文件，内容如下：&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;baseURL = &amp;quot;http://example.org/&amp;quot;
+languageCode = &amp;quot;en-us&amp;quot;
+title = &amp;quot;My New Hugo Site&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;根据自己的需要修改域名、语言代码和网站标题&lt;/p&gt;
+&lt;h2 id=&#34;安装主题&#34;&gt;安装主题&lt;/h2&gt;
+&lt;p&gt;访问 &lt;a href=&#34;https://themes.gohugo.io/&#34;&gt;hugo 主题网站&lt;/a&gt;，选择自己喜欢的主题，这里我选择了&lt;a href=&#34;https://themes.gohugo.io/hugo-theme-zen/&#34;&gt;zen&lt;/a&gt; 将其复制到 blog/themes 下，并修改 blog/config.toml，增加以下内容：&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;theme = &amp;quot;zen&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;&lt;h2 id=&#34;创建-blog&#34;&gt;创建 blog&lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;$ hugo new posts/hello-world.md
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;会生成 content/posts/hello-world.md 文件，并且默认有以下内容：&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;---
+title: &amp;quot;Hello World&amp;quot;
+date: 2020-01-06T12:07:05+08:00
+draft: true
+---
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;&lt;code&gt;draft: true&lt;/code&gt; 表明该文档还是起草阶段，不会生成静态文件&lt;/p&gt;
+&lt;p&gt;在 &lt;code&gt;---&lt;/code&gt; 下面写文章内容，格式为 &lt;a href=&#34;https://www.markdownguide.org/getting-started/&#34;&gt;Markdown&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&#34;启动-hugo-预览服务&#34;&gt;启动 hugo 预览服务&lt;/h2&gt;
+&lt;p&gt;在写文章的时候，可以启动 hugo 的 HTTP 预览服务，监听本地 &lt;code&gt;1313&lt;/code&gt; 端口：&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;# -D, --buildDrafts            include content marked as draft
+$ hugo server -D
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;hugo 通过 &lt;a href=&#34;github.com/fsnotify/fsnotify&#34;&gt;fsnotify&lt;/a&gt; 监视目录文件变化，即时读取和渲染修改后的 markdown 文件，并且通过 websocket 通知浏览器前端重新加载页面&lt;/p&gt;
+&lt;h2 id=&#34;排雷&#34;&gt;排雷&lt;/h2&gt;
+&lt;p&gt;刚开始下载的不是 extended 版本的 hugo，执行 &lt;code&gt;hugo server -D&lt;/code&gt; 的时候报错：&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;Building sites … ERROR 2020/01/06 14:22:33 Transformation failed: TOCSS: failed to transform &amp;quot;sass/styles.scss&amp;quot; (text/x-scss): this feature is not available in your current Hugo version, see https://goo.gl/YMrWcn for more information
+ERROR 2020/01/06 14:22:33 Transformation failed: TOCSS: failed to transform &amp;quot;sass/print.scss&amp;quot; (text/x-scss): this feature is not available in your current Hugo version, see https://goo.gl/YMrWcn for more information
+Built in 11 ms
+Error: Error building site: logged 2 error(s)
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;重新下载 &lt;code&gt;hugo_extended_0.62.2_macOS-64bit.tar.gz&lt;/code&gt; 解决了问题&lt;/p&gt;
+&lt;h2 id=&#34;生成静态文件&#34;&gt;生成静态文件&lt;/h2&gt;
+&lt;p&gt;在 blog 目录下运行以下命令生成静态文件&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;$ hugo 
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;整个 blog 的静态文件在 &lt;code&gt;public&lt;/code&gt; 目录下，将其托管到 web 上即可对外提供访问&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>
