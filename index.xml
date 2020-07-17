@@ -2,18 +2,18 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>随便写写</title>
-    <link>https://zlx.pub/</link>
+    <link>https://example.org/</link>
     <description>Recent content on 随便写写</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <lastBuildDate>Mon, 06 Jan 2020 11:28:08 +0800</lastBuildDate>
-    <atom:link href="https://zlx.pub/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://example.org/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>使用hugo搭建个人blog</title>
-      <link>https://zlx.pub/posts/build-your-blog-with-hugo/</link>
+      <link>https://example.org/posts/build-your-blog-with-hugo/</link>
       <pubDate>Mon, 06 Jan 2020 11:28:08 +0800</pubDate>
-      <guid>https://zlx.pub/posts/build-your-blog-with-hugo/</guid>
+      <guid>https://example.org/posts/build-your-blog-with-hugo/</guid>
       <description>&lt;p&gt;简要记录一下搭建本 blog 的过程。&lt;/p&gt;
 &lt;h2 id=&#34;下载-hugo&#34;&gt;下载 Hugo&lt;/h2&gt;
 &lt;p&gt;从 github 上 hugo 项目的 &lt;a href=&#34;https://github.com/gohugoio/hugo/releases&#34;&gt;release&lt;/a&gt; 下载适用自己电脑操作系统的 hugo 二进制文件&lt;/p&gt;

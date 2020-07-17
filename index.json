@@ -1,0 +1,24 @@
+{
+    "version" : "https://jsonfeed.org/version/1",
+    "title" : "随便写写",
+    "description": "Recent content on 随便写写",
+    "home_page_url" : "https://example.org/",
+    "feed_url" : "https://example.org/index.json",
+    "icon" : "https://example.org/apple-touch-icon-180.png",
+    "favicon" : "https://example.org/icon-64.png",
+    "author" : {
+        "name" : "LixinZheng",
+        "url": "https://github.com/gofly",
+        "avatar": "https://example.org/images/avatar.png"
+    },
+    "items" : [
+    {
+        "title" : "使用hugo搭建个人blog",
+        "date_published" : "2020-01-06T11:28:08+08:00",
+        "date_modified" : "2020-01-06T11:28:08+08:00",
+        "id" : "https://example.org/posts/build-your-blog-with-hugo/",
+        "url" : "https://example.org/posts/build-your-blog-with-hugo/",
+        "content_html" : "\u003cp\u003e简要记录一下搭建本 blog 的过程。\u003c/p\u003e\n\u003ch2 id=\"下载-hugo\"\u003e下载 Hugo\u003c/h2\u003e\n\u003cp\u003e从 github 上 hugo 项目的 \u003ca href=\"https://github.com/gohugoio/hugo/releases\"\u003erelease\u003c/a\u003e 下载适用自己电脑操作系统的 hugo 二进制文件\u003c/p\u003e\n\u003cpre\u003e\u003ccode\u003e## 下载 hugo\n$ curl -sL https://github.com/gohugoio/hugo/releases/download/v0.62.2/hugo_extended_0.62.2_macOS-64bit.tar.gz | tar zx\n\n# 复制二进制文件到 PATH 包含的目录下\n$ cp hugo_extended_0.62.2_macOS-64bit/hugo /usr/local/bin\n\n\u003c/code\u003e\u003c/pre\u003e\u003ch2 id=\"生成-blog-项目\"\u003e生成 blog 项目\u003c/h2\u003e\n\u003cpre\u003e\u003ccode\u003e$ hugo new site blog\n\n$ tree blog\nblog\n├── archetypes\n│   └── default.md\n├── config.toml\n├── content\n├── data\n├── layouts\n├── static\n└── themes\n\n6 directories, 2 files\n\u003c/code\u003e\u003c/pre\u003e\u003cp\u003e\u003ccode\u003econfig.toml\u003c/code\u003e 是项目的配置文件，内容如下：\u003c/p\u003e\n\u003cpre\u003e\u003ccode\u003ebaseURL = \u0026quot;http://example.org/\u0026quot;\nlanguageCode = \u0026quot;en-us\u0026quot;\ntitle = \u0026quot;My New Hugo Site\u0026quot;\n\u003c/code\u003e\u003c/pre\u003e\u003cp\u003e根据自己的需要修改域名、语言代码和网站标题\u003c/p\u003e\n\u003ch2 id=\"安装主题\"\u003e安装主题\u003c/h2\u003e\n\u003cp\u003e访问 \u003ca href=\"https://themes.gohugo.io/\"\u003ehugo 主题网站\u003c/a\u003e，选择自己喜欢的主题，这里我选择了\u003ca href=\"https://themes.gohugo.io/hugo-theme-zen/\"\u003ezen\u003c/a\u003e 将其复制到 blog/themes 下，并修改 blog/config.toml，增加以下内容：\u003c/p\u003e\n\u003cpre\u003e\u003ccode\u003etheme = \u0026quot;zen\u0026quot;\n\u003c/code\u003e\u003c/pre\u003e\u003ch2 id=\"创建-blog\"\u003e创建 blog\u003c/h2\u003e\n\u003cpre\u003e\u003ccode\u003e$ hugo new posts/hello-world.md\n\u003c/code\u003e\u003c/pre\u003e\u003cp\u003e会生成 content/posts/hello-world.md 文件，并且默认有以下内容：\u003c/p\u003e\n\u003cpre\u003e\u003ccode\u003e---\ntitle: \u0026quot;Hello World\u0026quot;\ndate: 2020-01-06T12:07:05+08:00\ndraft: true\n---\n\u003c/code\u003e\u003c/pre\u003e\u003cp\u003e\u003ccode\u003edraft: true\u003c/code\u003e 表明该文档还是起草阶段，不会生成静态文件\u003c/p\u003e\n\u003cp\u003e在 \u003ccode\u003e---\u003c/code\u003e 下面写文章内容，格式为 \u003ca href=\"https://www.markdownguide.org/getting-started/\"\u003eMarkdown\u003c/a\u003e\u003c/p\u003e\n\u003ch2 id=\"启动-hugo-预览服务\"\u003e启动 hugo 预览服务\u003c/h2\u003e\n\u003cp\u003e在写文章的时候，可以启动 hugo 的 HTTP 预览服务，监听本地 \u003ccode\u003e1313\u003c/code\u003e 端口：\u003c/p\u003e\n\u003cpre\u003e\u003ccode\u003e# -D, --buildDrafts            include content marked as draft\n$ hugo server -D\n\u003c/code\u003e\u003c/pre\u003e\u003cp\u003ehugo 通过 \u003ca href=\"github.com/fsnotify/fsnotify\"\u003efsnotify\u003c/a\u003e 监视目录文件变化，即时读取和渲染修改后的 markdown 文件，并且通过 websocket 通知浏览器前端重新加载页面\u003c/p\u003e\n\u003ch2 id=\"排雷\"\u003e排雷\u003c/h2\u003e\n\u003cp\u003e刚开始下载的不是 extended 版本的 hugo，执行 \u003ccode\u003ehugo server -D\u003c/code\u003e 的时候报错：\u003c/p\u003e\n\u003cpre\u003e\u003ccode\u003eBuilding sites … ERROR 2020/01/06 14:22:33 Transformation failed: TOCSS: failed to transform \u0026quot;sass/styles.scss\u0026quot; (text/x-scss): this feature is not available in your current Hugo version, see https://goo.gl/YMrWcn for more information\nERROR 2020/01/06 14:22:33 Transformation failed: TOCSS: failed to transform \u0026quot;sass/print.scss\u0026quot; (text/x-scss): this feature is not available in your current Hugo version, see https://goo.gl/YMrWcn for more information\nBuilt in 11 ms\nError: Error building site: logged 2 error(s)\n\u003c/code\u003e\u003c/pre\u003e\u003cp\u003e重新下载 \u003ccode\u003ehugo_extended_0.62.2_macOS-64bit.tar.gz\u003c/code\u003e 解决了问题\u003c/p\u003e\n\u003ch2 id=\"生成静态文件\"\u003e生成静态文件\u003c/h2\u003e\n\u003cp\u003e在 blog 目录下运行以下命令生成静态文件\u003c/p\u003e\n\u003cpre\u003e\u003ccode\u003e$ hugo \n\u003c/code\u003e\u003c/pre\u003e\u003cp\u003e整个 blog 的静态文件在 \u003ccode\u003epublic\u003c/code\u003e 目录下，将其托管到 web 上即可对外提供访问\u003c/p\u003e\n"
+    }
+    ]
+}
